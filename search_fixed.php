@@ -9,10 +9,11 @@ $search = $_GET['search'] ?? '';
 
 if($search) {
 
-	$query = "SELECT id, release_date, name from movies where name = '$search'";
+	$cols = Array('id', 'release_date', 'name');
 
-	$results = $db->rawQuery($query);
-
+	$db->where('name', $search);
+	$results = $db->get('movies', null, $cols);
+	
 	echo 'ran query: ' . $db->getLastQuery() . '</br>';
 
 	echo '<b>' . count($results) . ' movies found:</b></br></br>';
